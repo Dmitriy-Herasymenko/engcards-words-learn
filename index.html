@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Англійські карточки-слайдер</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      margin: 0;
+      flex-direction: column;
+    }
+
+    .card-container {
+      width: 300px;
+      height: 180px;
+      perspective: 1200px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      background-color: #4caf50;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform 0.7s;
+      transform-style: preserve-3d;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .card-front {
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .card-back {
+      background: linear-gradient(135deg, #2196f3, #64b5f6);
+      transform: rotateY(180deg);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 400px) {
+      .card-container {
+        width: 90%;
+        height: 160px;
+      }
+
+      .card {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <div class="card" id="card">
+      <div class="card-front" id="cardFront"></div>
+      <div class="card-back" id="cardBack"></div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button id="prevBtn">Попереднє</button>
+    <button id="nextBtn">Наступне</button>
+  </div>
+
+  <script>
+    const words = [
+      {id: 1, wordEng: "hello", wordUA: "Привіт"},
+      {id: 2, wordEng: "apple", wordUA: "Яблуко"},
+      {id: 3, wordEng: "book", wordUA: "Книга"},
+      {id: 4, wordEng: "cat", wordUA: "Кіт"},
+      {id: 5, wordEng: "dog", wordUA: "Собака"}
+    ];
+
+    let currentIndex = 0;
+    const card = document.getElementById('card');
+    const cardFront = document.getElementById('cardFront');
+    const cardBack = document.getElementById('cardBack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showCard(index) {
+      card.classList.remove('flipped'); 
+      cardFront.textContent = words[index].wordEng;
+      cardBack.textContent = words[index].wordUA;
+    }
+
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + words.length) % words.length;
+      showCard(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % words.length;
+      showCard(currentIndex);
+    });
+
+    showCard(currentIndex);
+  </script>
+
+</body>
+</html>
