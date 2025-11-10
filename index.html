@@ -122,19 +122,21 @@
 
   <script>
     const words = [
-      {id: 1, wordEng: "hello", wordUA: "Привіт"},
-      {id: 2, wordEng: "apple", wordUA: "Яблуко"},
-      {id: 3, wordEng: "book", wordUA: "Книга"},
-      {id: 4, wordEng: "cat", wordUA: "Кіт"},
-      {id: 5, wordEng: "dog", wordUA: "Собака"}
+      {id: 1, wordEng: "although", wordUA: "хоча"},
+      {id: 2, wordEng: "could", wordUA: "бути в змозі"},
+      {id: 3, wordEng: "even", wordUA: "навіть"},
+      {id: 4, wordEng: "into", wordUA: "всередину"},
+      {id: 5, wordEng: "their", wordUA: "ії"}
     ];
 
     let currentIndex = 0;
     const card = document.getElementById('card');
     const cardFront = document.getElementById('cardFront');
     const cardBack = document.getElementById('cardBack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+
+    function getRandomIndex() {
+      return Math.floor(Math.random() * words.length);
+    }
 
     function showCard(index) {
       card.classList.remove('flipped'); 
@@ -146,16 +148,18 @@
       card.classList.toggle('flipped');
     });
 
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + words.length) % words.length;
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      currentIndex = getRandomIndex();
       showCard(currentIndex);
     });
 
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % words.length;
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      currentIndex = getRandomIndex();
       showCard(currentIndex);
     });
 
+
+    currentIndex = getRandomIndex();
     showCard(currentIndex);
   </script>
 
