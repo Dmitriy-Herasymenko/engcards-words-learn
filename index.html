@@ -120,48 +120,7 @@
     <button id="nextBtn">Наступне</button>
   </div>
 
-  <script>
-    const words = [
-      {id: 1, wordEng: "although", wordUA: "хоча"},
-      {id: 2, wordEng: "could", wordUA: "бути в змозі"},
-      {id: 3, wordEng: "even", wordUA: "навіть"},
-      {id: 4, wordEng: "into", wordUA: "всередину"},
-      {id: 5, wordEng: "their", wordUA: "ії"}
-    ];
-
-    let currentIndex = 0;
-    const card = document.getElementById('card');
-    const cardFront = document.getElementById('cardFront');
-    const cardBack = document.getElementById('cardBack');
-
-    function getRandomIndex() {
-      return Math.floor(Math.random() * words.length);
-    }
-
-    function showCard(index) {
-      card.classList.remove('flipped'); 
-      cardFront.textContent = words[index].wordEng;
-      cardBack.textContent = words[index].wordUA;
-    }
-
-    card.addEventListener('click', () => {
-      card.classList.toggle('flipped');
-    });
-
-    document.getElementById('prevBtn').addEventListener('click', () => {
-      currentIndex = getRandomIndex();
-      showCard(currentIndex);
-    });
-
-    document.getElementById('nextBtn').addEventListener('click', () => {
-      currentIndex = getRandomIndex();
-      showCard(currentIndex);
-    });
-
-
-    currentIndex = getRandomIndex();
-    showCard(currentIndex);
-  </script>
+<script src="./js.js"></script>
 
 </body>
 </html>
