@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Англійські карточки-слайдер</title>
+  <title>English Flashcards Pro</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -12,26 +12,48 @@
   <button class="level-btn" data-level="beginner">Beginner</button>
   <button class="level-btn" data-level="intermediate">Intermediate</button>
   <button class="level-btn" data-level="advanced">Advanced</button>
+  <button class="level-btn" id="showSavedBtn">⭐ Вчити збережені (<span id="savedCount">0</span>)</button>
+  <button class="level-btn" id="openManagerBtn">📋 Мій список</button>
 </div>
 
 <div class="card-container">
     <div class="card" id="card">
       <div class="card-front" id="cardFront">
+        <button id="favoriteBtn" class="fav-btn">★</button>
         <div id="wordText"></div>
-        <div id="wordTransc" style="font-size: 18px; color: #f0f0f0; margin-top: 10px; margin-bottom: 15px;"></div>
-        <button id="speakBtn" style="background: rgba(255,255,255,0.3); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; font-size: 24px; color: white;">🔊</button>
-              <button id="exampleBtn">Context</button>
-      <div id="exampleText" class="hidden"></div>
+        <div id="wordTransc"></div>
+        
+        <button id="exampleBtn">Context</button>
+        <div id="exampleText" class="hidden"></div>
+
+        <button id="speakBtn">🔊</button>
       </div>
       <div class="card-back" id="cardBack"></div>
     </div>
 </div>
 
-
-
 <div class="buttons">
   <button id="prevBtn">Попереднє</button>
   <button id="nextBtn">Наступне</button>
+</div>
+
+<div id="savedSection" class="hidden">
+  <div class="section-header">
+    <h2>Ваш словник</h2>
+    <button id="closeSectionBtn">&times;</button>
+  </div>
+  <div class="table-wrapper">
+    <table id="savedTable">
+      <thead>
+        <tr>
+          <th>English</th>
+          <th>Українською</th>
+          <th>Дія</th>
+        </tr>
+      </thead>
+      <tbody id="savedTableBody"></tbody>
+    </table>
+  </div>
 </div>
 
 <script src="dataWords.js"></script>
