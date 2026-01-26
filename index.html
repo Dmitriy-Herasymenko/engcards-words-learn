@@ -4,123 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Англійські карточки-слайдер</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-      margin: 0;
-      flex-direction: column;
-    }
-
-    .card-container {
-      width: 300px;
-      height: 180px;
-      perspective: 1200px;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-      background-color: #4caf50;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-      cursor: pointer;
-      transition: transform 0.7s;
-      transform-style: preserve-3d;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      position: relative;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-    }
-
-    .card.flipped {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 20px;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .card-front {
-      background: linear-gradient(135deg, #4caf50, #81c784);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-    }
-
-    .card-back {
-      background: linear-gradient(135deg, #2196f3, #64b5f6);
-      transform: rotateY(180deg);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-    }
-
-    button {
-      padding: 12px 25px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-    }
-
-    @media (max-width: 400px) {
-      .card-container {
-        width: 90%;
-        height: 160px;
-      }
-
-      .card {
-        font-size: 22px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-  <div class="card-container">
+<div class="levels">
+  <button class="level-btn" data-level="beginner">Beginner</button>
+  <button class="level-btn" data-level="intermediate">Intermediate</button>
+  <button class="level-btn" data-level="advanced">Advanced</button>
+</div>
+
+<div class="card-container">
     <div class="card" id="card">
-      <div class="card-front" id="cardFront"></div>
+      <div class="card-front" id="cardFront">
+        <div id="wordText"></div>
+        <div id="wordTransc" style="font-size: 18px; color: #f0f0f0; margin-top: 10px; margin-bottom: 15px;"></div>
+        <button id="speakBtn" style="background: rgba(255,255,255,0.3); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; font-size: 24px; color: white;">🔊</button>
+      </div>
       <div class="card-back" id="cardBack"></div>
     </div>
-  </div>
+</div>
 
-  <div class="buttons">
-    <button id="prevBtn">Попереднє</button>
-    <button id="nextBtn">Наступне</button>
-  </div>
+<div class="buttons">
+  <button id="prevBtn">Попереднє</button>
+  <button id="nextBtn">Наступне</button>
+</div>
 
-<script src="./js.js"></script>
+<script src="dataWords.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
