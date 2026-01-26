@@ -10,16 +10,24 @@ const speakBtn = document.getElementById('speakBtn');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const levelBtns = document.querySelectorAll('.level-btn');
+const exampleBtn = document.getElementById('exampleBtn');
+const exampleText = document.getElementById('exampleText');
 
 function showCard(index) {
     isFinished = false;
     card.classList.remove('flipped');
+    
+    if (exampleText) {
+        exampleText.classList.add('hidden');
+        exampleBtn.textContent = "Context";
+    }
 
     if (index >= currentWords.length) {
         isFinished = true;
         wordText.textContent = "🎉 Вітаємо!";
         wordTransc.textContent = "";
-        speakBtn.style.display = "none";
+        if (speakBtn) speakBtn.style.display = "none";
+        if (exampleBtn) exampleBtn.style.display = "none";
         cardBack.textContent = "Це всі слова на цій складності!";
         card.classList.add('flipped');
         nextBtn.disabled = true;
@@ -27,10 +35,13 @@ function showCard(index) {
     }
 
     nextBtn.disabled = false;
-    speakBtn.style.display = "flex";
+    if (speakBtn) speakBtn.style.display = "flex";
+    if (exampleBtn) exampleBtn.style.display = "block";
+    
     wordText.textContent = currentWords[index].wordEng;
     wordTransc.textContent = currentWords[index].transcription || "";
     cardBack.textContent = currentWords[index].wordUA;
+    if (exampleText) exampleText.textContent = currentWords[index].example || "";
 }
 
 function playAudio() {
@@ -42,10 +53,20 @@ function playAudio() {
     window.speechSynthesis.speak(utterance);
 }
 
-speakBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    playAudio();
-});
+if (speakBtn) {
+    speakBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playAudio();
+    });
+}
+
+if (exampleBtn) {
+    exampleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        exampleText.classList.toggle('hidden');
+        exampleBtn.textContent = exampleText.classList.contains('hidden') ? "Context" : "Hide";
+    });
+}
 
 card.addEventListener('click', () => {
     if (!isFinished) {
