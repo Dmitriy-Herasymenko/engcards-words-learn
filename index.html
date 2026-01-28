@@ -3,61 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>English Flashcards Pro</title>
+  <title>EngFlow Platform</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<div class="levels">
-  <button class="level-btn" data-level="beginner">Beginner</button>
-  <button class="level-btn" data-level="intermediate">Intermediate</button>
-  <button class="level-btn" data-level="advanced">Advanced</button>
-  <button class="level-btn" id="showSavedBtn">⭐ Вчити збережені (<span id="savedCount">0</span>)</button>
-  <button class="level-btn" id="openManagerBtn">📋 Мій список</button>
-</div>
+<header class="main-header">
+  <div class="logo">EngFlow</div>
+  
+  <button class="burger-menu" id="burgerBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-<div class="card-container">
-    <div class="card" id="card">
-      <div class="card-front" id="cardFront">
-        <button id="favoriteBtn" class="fav-btn">★</button>
-        <div id="wordText"></div>
-        <div id="wordTransc"></div>
-        
-        <button id="exampleBtn">Context</button>
-        <div id="exampleText" class="hidden"></div>
-
-        <button id="speakBtn">🔊</button>
+  <nav class="nav-menu" id="navMenu">
+    <div class="nav-item dropdown">
+      <button class="nav-link">Картки ▾</button>
+      <div class="dropdown-content">
+        <button class="level-btn" data-level="beginner">Beginner</button>
+        <button class="level-btn" data-level="intermediate">Intermediate</button>
+        <button class="level-btn" data-level="advanced">Advanced</button>
+        <button class="level-btn" id="showSavedBtn">⭐ Обране (<span id="savedCount">0</span>)</button>
       </div>
-      <div class="card-back" id="cardBack"></div>
     </div>
-</div>
 
-<div class="buttons">
-  <button id="prevBtn">Попереднє</button>
-  <button id="nextBtn">Наступне</button>
-</div>
+    <div class="nav-item dropdown">
+      <button class="nav-link">Тренажер ▾</button>
+      <div class="dropdown-content">
+        <button id="toBeAllBtn">Verb To Be (All-in-one)</button>
+        <button id="pronounsBtn">Pronouns</button>
+        <button disabled style="opacity: 0.5;">⏳ Скоро...</button>
+      </div>
+    </div>
 
-<div id="savedSection" class="hidden">
-  <div class="section-header">
-    <h2>Ваш словник</h2>
-    <button id="closeSectionBtn">&times;</button>
+    <div class="nav-item dropdown">
+      <button class="nav-link">Медіа ▾</button>
+      <div class="dropdown-content">
+        <button id="cinemaBtn">🎬 Фільми</button>
+      </div>
+    </div>
+
+    <button id="openManagerBtn" class="nav-link">📋 Словник</button>
+  </nav>
+</header>
+
+<main id="app-viewport">
+  <h1 id="view-title" class="page-title">Beginner</h1>
+
+  <section id="learning-section" class="view-section">
+    <div class="card-container">
+      <div class="card" id="card">
+        <div class="card-front">
+          <button id="favoriteBtn" class="fav-btn">★</button>
+          <div id="wordText"></div>
+          <div id="wordTransc"></div>
+          <button id="exampleBtn">Context</button>
+          <div id="exampleText" class="hidden"></div>
+          <button id="speakBtn">🔊</button>
+        </div>
+        <div class="card-back" id="cardBack"></div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button id="prevBtn">Попереднє</button>
+      <button id="nextBtn">Наступне</button>
+    </div>
+  </section>
+
+<section id="quiz-section" class="view-section hidden">
+  <div id="theory-toBe" class="theory-block">
+    <div class="theory-card">
+      <h3 style="margin-top:0; color:#38bdf8;">Verb To Be (Шпаргалка)</h3>
+      <table class="theory-table mobile-optim">
+        <thead>
+          <tr>
+            <th>Хто?</th>
+            <th>To Be</th>
+            <th>Приклад</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Хто?"><b>I</b></td>
+            <td data-label="To Be">am</td>
+            <td data-label="Приклад">I <b>am</b> a dev</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>He/She/It</b></td>
+            <td data-label="To Be">is</td>
+            <td data-label="Приклад">It <b>is</b> a bug</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>We/You/They</b></td>
+            <td data-label="To Be">are</td>
+            <td data-label="Приклад">They <b>are</b> fast</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="theory-notes">
+        <span>❌ <b>not</b> (isn't/aren't)</span> | <span>❓ <b>Am/Is/Are</b> на початок</span>
+      </div>
+    </div>
   </div>
-  <div class="table-wrapper">
-    <table id="savedTable">
-      <thead>
-        <tr>
-          <th>English</th>
-          <th>Українською</th>
-          <th>Дія</th>
-        </tr>
-      </thead>
-      <tbody id="savedTableBody"></tbody>
-    </table>
+
+  <div id="theory-pronouns" class="theory-block hidden">
+    <div class="theory-card">
+      <h3 style="margin-top:0; color:#38bdf8;">Personal Pronouns (Займенники)</h3>
+      <table class="theory-table mobile-optim">
+        <thead>
+          <tr>
+            <th>Хто?</th>
+            <th>Англійська</th>
+            <th>Особливість</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Хто?"><b>Я</b></td>
+            <td data-label="Англійська">I</td>
+            <td data-label="Особливість">Завжди з великої</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>Він / Вона</b></td>
+            <td data-label="Англійська">He / She</td>
+            <td data-label="Особливість">Тільки для людей</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>Воно</b></td>
+            <td data-label="Англійська">It</td>
+            <td data-label="Особливість">Предмети, тварини</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>Ми</b></td>
+            <td data-label="Англійська">We</td>
+            <td data-label="Особливість">Я + хтось ще</td>
+          </tr>
+          <tr>
+            <td data-label="Хто?"><b>Вони</b></td>
+            <td data-label="Англійська">They</td>
+            <td data-label="Особливість">Множина</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="theory-notes">
+        <span>💡 <b>You</b> — завжди множина в граматиці</span>
+      </div>
+    </div>
   </div>
-</div>
+
+  <div class="quiz-container">
+    <div id="quizQuestion" class="quiz-q"></div>
+    <div id="quizOptions" class="options-grid"></div>
+    <div id="quizFeedback" class="feedback"></div>
+  </div>
+</section>
+
+  <section id="savedSection" class="view-section hidden">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th data-label="English">English</th>
+            <th data-label="Українською">Українською</th>
+            <th data-label="Дія">Дія</th>
+          </tr>
+        </thead>
+        <tbody id="savedTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
 
 <script src="dataWords.js"></script>
+<script src="dataQuiz.js"></script>
 <script src="app.js"></script>
-
 </body>
 </html>
