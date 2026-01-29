@@ -54,6 +54,8 @@ function updateActiveMenu(btn) {
 
 function updateUI() {
   if (savedCountLabel) savedCountLabel.textContent = savedWords.length;
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = isFinished;
   if (favoriteBtn && !isFinished && currentWords[currentIndex]) {
     const isSaved = savedWords.some(w => w.id === currentWords[currentIndex].id);
     favoriteBtn.classList.toggle('active', isSaved);
@@ -65,11 +67,13 @@ function showCard(index) {
   card.classList.remove('flipped');
   exampleText.classList.add('hidden');
   exampleBtn.textContent = "Context";
-  if (!currentWords[index]) {
+  if (index >= currentWords.length) {
     isFinished = true;
-    wordText.textContent = "Кінець";
-    cardBack.textContent = "Слова закінчилися";
+    wordText.textContent = "Вітаємо! 🎉";
+    wordTransc.textContent = "";
+    cardBack.textContent = "Всі слова пройдено!";
     card.classList.add('flipped');
+    updateUI();
     return;
   }
   wordText.textContent = currentWords[index].wordEng;
@@ -83,11 +87,7 @@ function renderSavedTable() {
   savedTableBody.innerHTML = '';
   savedWords.forEach(word => {
     const row = document.createElement('tr');
-    row.innerHTML = `
-            <td data-label="English"><b>${word.wordEng}</b></td>
-            <td data-label="Українською">${word.wordUA}</td>
-            <td data-label="Дія"><button class="delete-cell-btn" onclick="deleteSavedWord(${word.id})">Видалити</button></td>
-        `;
+    row.innerHTML = `<td data-label="English"><b>${word.wordEng}</b></td><td data-label="Українською">${word.wordUA}</td><td data-label="Дія"><button class="delete-cell-btn" onclick="deleteSavedWord(${word.id})">Видалити</button></td>`;
     savedTableBody.appendChild(row);
   });
 }
@@ -110,11 +110,9 @@ function loadQuizQuestion() {
   const quizQuestion = document.getElementById('quizQuestion');
   const quizOptions = document.getElementById('quizOptions');
   const quizFeedback = document.getElementById('quizFeedback');
-
   quizFeedback.innerHTML = `<span style="color: #94a3b8; margin-top: 20px; display: block; text-align: center;">Питання ${quizIndex + 1} з ${currentQuizData.length}</span>`;
   quizQuestion.textContent = q.question;
   quizOptions.innerHTML = "";
-
   q.options.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
@@ -220,8 +218,20 @@ if (speakBtn) {
   });
 }
 
-if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < currentWords.length - 1) { currentIndex++; showCard(currentIndex); } });
-if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; showCard(currentIndex); } });
+nextBtn.addEventListener('click', () => { 
+  if (currentIndex < currentWords.length) { 
+    currentIndex++; 
+    showCard(currentIndex); 
+  }
+});
+
+prevBtn.addEventListener('click', () => { 
+  if (currentIndex > 0) { 
+    currentIndex--; 
+    showCard(currentIndex); 
+  } 
+});
+
 if (card) card.addEventListener('click', () => { if (!isFinished) card.classList.toggle('flipped'); });
 
 if (exampleBtn) {
@@ -238,7 +248,11 @@ if (favoriteBtn) {
     const word = currentWords[currentIndex];
     if (!word) return;
     const idx = savedWords.findIndex(w => w.id === word.id);
-    idx === -1 ? savedWords.push(word) : savedWords.splice(idx, 1);
+    if (idx === -1) {
+      savedWords = [...savedWords, { ...word }];
+    } else {
+      savedWords = savedWords.filter(w => w.id !== word.id);
+    }
     localStorage.setItem('savedWords', JSON.stringify(savedWords));
     updateUI();
   });
