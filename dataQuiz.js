@@ -141,3 +141,36 @@ const toBeQuiz = [
     { question: "___ the task done?", options: ["Am", "Is", "Are"], answer: "Is" }
 ];
 
+const articlesQuiz = [
+    { question: "I found ___ bug in the code.", options: ["a", "an", "the"], answer: "a" },
+    { question: "Can you check ___ API documentation?", options: ["a", "an", "the"], answer: "the" },
+    { question: "He is ___ excellent engineer.", options: ["a", "an", "the"], answer: "an" },
+    { question: "She bought ___ new MacBook.", options: ["a", "an", "the"], answer: "a" },
+    { question: "___ sun is very bright today.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I need ___ hour to finish this task.", options: ["a", "an", "the"], answer: "an" },
+    { question: "Open ___ folder on your desktop.", options: ["a", "an", "the"], answer: "the" },
+    { question: "This is ___ easy question.", options: ["a", "an", "the"], answer: "an" },
+    { question: "Wait for ___ minute, please.", options: ["a", "an", "the"], answer: "a" },
+    { question: "Look at ___ moon tonight!", options: ["a", "an", "the"], answer: "the" },
+    { question: "Do you have ___ umbrella?", options: ["a", "an", "the"], answer: "an" },
+    { question: "___ UI of this app is great.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I want to be ___ professional coder.", options: ["a", "an", "the"], answer: "a" },
+    { question: "He lives in ___ small apartment.", options: ["a", "an", "the"], answer: "a" },
+    { question: "It is ___ interesting idea.", options: ["a", "an", "the"], answer: "an" },
+    { question: "Close ___ window, please.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I see ___ apple on the table.", options: ["a", "an", "the"], answer: "an" },
+    { question: "___ project is finally finished.", options: ["a", "an", "the"], answer: "the" },
+    { question: "Give me ___ pen, please.", options: ["a", "an", "the"], answer: "a" },
+    { question: "She is ___ honest person.", options: ["a", "an", "the"], answer: "an" },
+    { question: "___ internet is slow today.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I have ___ cat and a dog.", options: ["a", "an", "the"], answer: "a" },
+    { question: "___ sky is blue.", options: ["a", "an", "the"], answer: "the" },
+    { question: "Is there ___ elevator in the building?", options: ["a", "an", "the"], answer: "an" },
+    { question: "___ price of this laptop is high.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I work for ___ international company.", options: ["a", "an", "the"], answer: "an" },
+    { question: "This is ___ uniform for work.", options: ["a", "an", "the"], answer: "a" }, // Тут звук 'y', тому 'a'
+    { question: "___ Capital of Ukraine is Kyiv.", options: ["a", "an", "the"], answer: "the" },
+    { question: "I need ___ new mouse for my PC.", options: ["a", "an", "the"], answer: "a" },
+    { question: "It was ___ amazing day.", options: ["a", "an", "the"], answer: "an" }
+];
+

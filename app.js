@@ -29,8 +29,11 @@ const burgerBtn = document.getElementById('burgerBtn');
 const navMenu = document.getElementById('navMenu');
 const toBeAllBtn = document.getElementById('toBeAllBtn');
 const pronounsBtn = document.getElementById('pronounsBtn');
+const articlesBtn = document.getElementById('articlesBtn');
 const theoryToBe = document.getElementById('theory-toBe');
 const theoryPronouns = document.getElementById('theory-pronouns');
+const theoryArticles = document.getElementById('theory-articles');
+
 
 function switchView(section, title) {
   [learningSection, quizSection, savedSection].forEach(s => s.classList.add('hidden'));
@@ -185,6 +188,19 @@ if (pronounsBtn) {
     if (theoryPronouns) theoryPronouns.classList.remove('hidden');
     if (theoryToBe) theoryToBe.classList.add('hidden');
     if (typeof pronounsQuiz !== 'undefined') startQuiz(pronounsQuiz);
+  });
+}
+
+if (articlesBtn) {
+  articlesBtn.addEventListener('click', function () {
+    switchView(quizSection, "Тренажер: Артиклі");
+    updateActiveMenu(this);
+    document.getElementById('theory-articles').classList.remove('hidden');
+    document.getElementById('theory-toBe').classList.add('hidden');
+    document.getElementById('theory-pronouns').classList.add('hidden');
+    document.getElementById('quiz-game-container').classList.remove('hidden');
+    
+    if (typeof articlesQuiz !== 'undefined') startQuiz(articlesQuiz);
   });
 }
 
