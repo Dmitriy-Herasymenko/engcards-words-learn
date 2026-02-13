@@ -33,6 +33,8 @@ const articlesBtn = document.getElementById('articlesBtn');
 const theoryToBe = document.getElementById('theory-toBe');
 const theoryPronouns = document.getElementById('theory-pronouns');
 const theoryArticles = document.getElementById('theory-articles');
+const presentSimpleBtn = document.getElementById('presentSimpleBtn');
+const theoryPresentSimple = document.getElementById('theory-presentSimple');
 
 
 function switchView(section, title) {
@@ -188,6 +190,19 @@ if (pronounsBtn) {
     if (theoryPronouns) theoryPronouns.classList.remove('hidden');
     if (theoryToBe) theoryToBe.classList.add('hidden');
     if (typeof pronounsQuiz !== 'undefined') startQuiz(pronounsQuiz);
+  });
+}
+
+if (presentSimpleBtn) {
+  presentSimpleBtn.addEventListener('click', function () {
+    switchView(quizSection, "Тренажер: Present Simple");
+    updateActiveMenu(this);
+    [theoryToBe, theoryPronouns, theoryArticles, theoryPresentSimple].forEach(t => {
+      if(t) t.classList.add('hidden');
+    });
+    theoryPresentSimple.classList.remove('hidden');
+    
+    if (typeof presentSimpleQuiz !== 'undefined') startQuiz(presentSimpleQuiz);
   });
 }
 

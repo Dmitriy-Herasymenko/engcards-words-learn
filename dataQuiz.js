@@ -174,3 +174,26 @@ const articlesQuiz = [
     { question: "It was ___ amazing day.", options: ["a", "an", "the"], answer: "an" }
 ];
 
+const presentSimpleQuiz = [
+    { question: "I ___ cartoons every evening.", options: ["watch", "watches", "watching"], answer: "watch" },
+    { question: "He ___ football on Saturdays.", options: ["play", "plays", "playing"], answer: "plays" },
+    { question: "They ___ English words in this app.", options: ["learn", "learns", "learning"], answer: "learn" },
+    { question: "She ___ a clean code.", options: ["write", "writes", "writing"], answer: "writes" },
+    { question: "The server ___ every 5 minutes.", options: ["restart", "restarts", "restarting"], answer: "restarts" },
+    { question: "We ___ in Uman.", options: ["live", "lives", "living"], answer: "live" },
+    { question: "It ___ a lot of memory. (The app)", options: ["use", "uses", "using"], answer: "uses" },
+    { question: "You ___ a great job.", options: ["do", "does", "doing"], answer: "do" },
+    { question: "My cat ___ all day.", options: ["sleep", "sleeps", "sleeping"], answer: "sleeps" },
+    { question: "The sun ___ in the east.", options: ["rise", "rises", "rising"], answer: "rises" },
+    { question: "I ___ CSS better than JS.", options: ["know", "knows", "knowing"], answer: "know" },
+    { question: "He ___ to be a senior dev.", options: ["want", "wants", "wanting"], answer: "wants" },
+    { question: "Developers ___ a lot of coffee.", options: ["drink", "drinks", "drinking"], answer: "drink" },
+    { question: "The function ___ an object.", options: ["return", "returns", "returning"], answer: "returns" },
+    { question: "She ___ to the gym.", options: ["go", "goes", "going"], answer: "goes" },
+    { question: "I ___ my MacBook every day.", options: ["use", "uses", "using"], answer: "use" },
+    { question: "The train ___ at 9 PM.", options: ["arrive", "arrives", "arriving"], answer: "arrives" },
+    { question: "They ___ in a big company.", options: ["work", "works", "working"], answer: "work" },
+    { question: "It ___ cold in winter.", options: ["feel", "feels", "feeling"], answer: "feels" },
+    { question: "You ___ English very well.", options: ["speak", "speaks", "speaking"], answer: "speak" },
+];
+
