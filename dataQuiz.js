@@ -174,6 +174,50 @@ const articlesQuiz = [
     { question: "It was ___ amazing day.", options: ["a", "an", "the"], answer: "an" }
 ];
 
+const articleRulesQuiz = [
+    // Rule a) a/an before countable singular nouns
+    { question: "I've got ___ car.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "She is ___ engineer.", options: ["a", "an", "---"], answer: "an", rule: "a) an — перед голосним звуком" },
+    { question: "He is ___ doctor.", options: ["a", "an", "---"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "Would you like ___ orange?", options: ["a", "an", "the"], answer: "an", rule: "a) an — перед голосним звуком" },
+    { question: "I can see ___ pencil on the table.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "Give me ___ chair, please.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "She has got ___ headache.", options: ["a", "an", "---"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "My friend will be ___ millionaire.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "Mr. Smith is ___ artist.", options: ["a", "an", "the"], answer: "an", rule: "a) an — перед голосним звуком" },
+    { question: "Mrs. Smith is ___ poetess.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "Is this ___ watch?", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    { question: "I have ___ spoon in my plate.", options: ["a", "an", "the"], answer: "a", rule: "a) a/an перед злічуваним іменником в однині" },
+    // Rule b) no article before plural nouns
+    { question: "I don't like ___ buses.", options: ["the", "a", "---"], answer: "---", rule: "b) без артикля перед іменниками у множині" },
+    { question: "They have ___ two cats.", options: ["the", "a", "---"], answer: "---", rule: "b) без артикля перед іменниками у множині" },
+    { question: "___ books are on the shelf.", options: ["The", "A", "---"], answer: "---", rule: "b) без артикля перед іменниками у множині" },
+    { question: "I can see no ___ paper on the table.", options: ["the", "a", "---"], answer: "---", rule: "b) без артикля після заперечення 'no'" },
+    // Rule c) no article before cities and countries
+    { question: "I live in ___ Ukraine.", options: ["the", "a", "---"], answer: "---", rule: "c) без артикля перед містами та країнами" },
+    { question: "___ Madrid is in ___ Spain.", options: ["The / ---", "--- / ---", "A / a"], answer: "--- / ---", rule: "c) без артикля перед містами та країнами" },
+    { question: "___ Kyiv is the capital of Ukraine.", options: ["The", "A", "---"], answer: "---", rule: "c) без артикля перед назвами міст" },
+    // Rule d) no article in fixed phrases
+    { question: "He goes to work by ___ bus.", options: ["the", "a", "---"], answer: "---", rule: "d) без артикля у фразах: by bus, on foot, at work, on holiday" },
+    { question: "She is at ___ work now.", options: ["the", "a", "---"], answer: "---", rule: "d) без артикля у фразах: by bus, on foot, at work, on holiday" },
+    { question: "They are on ___ holiday.", options: ["the", "a", "---"], answer: "---", rule: "d) без артикля у фразах: by bus, on foot, at work, on holiday" },
+    { question: "I go to school on ___ foot.", options: ["the", "a", "---"], answer: "---", rule: "d) без артикля у фразах: by bus, on foot, at work, on holiday" },
+    // Rule e) the before unique nouns
+    { question: "___ moon is beautiful tonight.", options: ["The", "A", "---"], answer: "The", rule: "e) the — якщо предмет єдиний у своєму роді" },
+    { question: "___ Eiffel Tower is in Paris.", options: ["The", "A", "---"], answer: "The", rule: "e) the — якщо предмет єдиний у своєму роді" },
+    { question: "___ sun rises in the east.", options: ["The", "A", "---"], answer: "The", rule: "e) the — якщо предмет єдиний у своєму роді" },
+    // Rule f) the in fixed phrases
+    { question: "I wake up in ___ morning.", options: ["the", "a", "---"], answer: "the", rule: "f) the у фразах: in the morning, on the right, on the metro" },
+    { question: "The shop is on ___ right.", options: ["the", "a", "---"], answer: "the", rule: "f) the у фразах: in the morning, on the right, on the metro" },
+    { question: "She goes to work on ___ metro.", options: ["the", "a", "---"], answer: "the", rule: "f) the у фразах: in the morning, on the right, on the metro" },
+    { question: "He studies in ___ evening.", options: ["the", "a", "---"], answer: "the", rule: "f) the у фразах: in the morning, on the right, on the metro" },
+    // Rule g) the in superlatives
+    { question: "This is ___ most beautiful city.", options: ["the", "a", "---"], answer: "the", rule: "g) the перед найвищим ступенем порівняння" },
+    { question: "It was ___ worst film I've seen.", options: ["the", "a", "---"], answer: "the", rule: "g) the перед найвищим ступенем порівняння" },
+    { question: "She is ___ best student in the class.", options: ["the", "a", "---"], answer: "the", rule: "g) the перед найвищим ступенем порівняння" },
+    { question: "This is ___ biggest building in the city.", options: ["the", "a", "---"], answer: "the", rule: "g) the перед найвищим ступенем порівняння" },
+];
+
 const presentSimpleQuiz = [
     { question: "I ___ cartoons every evening.", options: ["watch", "watches", "watching"], answer: "watch" },
     { question: "He ___ football on Saturdays.", options: ["play", "plays", "playing"], answer: "plays" },

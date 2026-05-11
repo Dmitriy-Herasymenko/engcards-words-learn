@@ -35,6 +35,8 @@ const theoryPronouns = document.getElementById('theory-pronouns');
 const theoryArticles = document.getElementById('theory-articles');
 const presentSimpleBtn = document.getElementById('presentSimpleBtn');
 const theoryPresentSimple = document.getElementById('theory-presentSimple');
+const articleRulesBtn = document.getElementById('articleRulesBtn');
+const theoryArticleRules = document.getElementById('theory-articleRules');
 
 
 function switchView(section, title) {
@@ -125,7 +127,9 @@ function loadQuizQuestion() {
     btn.onclick = () => {
       if (opt === q.answer) {
         btn.classList.add('correct');
-        quizFeedback.innerHTML = "✨ Правильно!";
+        quizFeedback.innerHTML = q.rule
+          ? `✨ Правильно! <span style="display:block;font-size:13px;color:#94a3b8;margin-top:4px;">📖 ${q.rule}</span>`
+          : "✨ Правильно!";
         setTimeout(() => {
           quizIndex++;
           if (quizIndex < currentQuizData.length) loadQuizQuestion();
@@ -210,12 +214,19 @@ if (articlesBtn) {
   articlesBtn.addEventListener('click', function () {
     switchView(quizSection, "Тренажер: Артиклі");
     updateActiveMenu(this);
-    document.getElementById('theory-articles').classList.remove('hidden');
-    document.getElementById('theory-toBe').classList.add('hidden');
-    document.getElementById('theory-pronouns').classList.add('hidden');
-    document.getElementById('quiz-game-container').classList.remove('hidden');
-    
+    [theoryToBe, theoryPronouns, theoryArticleRules, theoryPresentSimple].forEach(t => { if (t) t.classList.add('hidden'); });
+    if (theoryArticles) theoryArticles.classList.remove('hidden');
     if (typeof articlesQuiz !== 'undefined') startQuiz(articlesQuiz);
+  });
+}
+
+if (articleRulesBtn) {
+  articleRulesBtn.addEventListener('click', function () {
+    switchView(quizSection, "Тренажер: Articles (Rules a-g)");
+    updateActiveMenu(this);
+    [theoryToBe, theoryPronouns, theoryArticles, theoryPresentSimple].forEach(t => { if (t) t.classList.add('hidden'); });
+    if (theoryArticleRules) theoryArticleRules.classList.remove('hidden');
+    if (typeof articleRulesQuiz !== 'undefined') startQuiz(articleRulesQuiz);
   });
 }
 
