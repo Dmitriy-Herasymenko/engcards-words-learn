@@ -4,10 +4,52 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
+function Results({ questions, mistakes, onRetry }) {
+  const correct = questions.length - mistakes.length
+  const pct = Math.round((correct / questions.length) * 100)
+
+  return (
+    <div className="quiz-container">
+      <div className="quiz-results-header">
+        <div className="quiz-score">{pct}%</div>
+        <div className="quiz-score-label">
+          {correct} з {questions.length} правильно
+        </div>
+      </div>
+
+      {mistakes.length === 0 ? (
+        <div className="quiz-perfect">🎉 Жодної помилки! Ідеальний результат!</div>
+      ) : (
+        <>
+          <div className="quiz-mistakes-title">Помилки ({mistakes.length}):</div>
+          <ul className="quiz-mistakes-list">
+            {mistakes.map((m, i) => (
+              <li key={i} className="quiz-mistake-item">
+                <div className="quiz-mistake-q">{m.question}</div>
+                <div className="quiz-mistake-row">
+                  <span className="quiz-mistake-wrong">✗ {m.yourAnswer}</span>
+                  <span className="quiz-mistake-correct">✓ {m.answer}</span>
+                </div>
+                {m.rule && <div className="quiz-mistake-rule">📖 {m.rule}</div>}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <button className="quiz-retry-btn" onClick={onRetry}>
+        🔄 Пройти ще раз
+      </button>
+    </div>
+  )
+}
+
 export default function QuizGame({ data }) {
-  const [questions] = useState(() => shuffle(data))
+  const [questions, setQuestions] = useState(() => shuffle(data))
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState(null)
+  const [mistakes, setMistakes] = useState([])
+  const [wrongAttempted, setWrongAttempted] = useState(false)
   const [done, setDone] = useState(false)
 
   const q = questions[index]
@@ -19,6 +61,7 @@ export default function QuizGame({ data }) {
       setSelected({ opt, correct: true })
       setTimeout(() => {
         setSelected(null)
+        setWrongAttempted(false)
         if (index + 1 < questions.length) {
           setIndex(i => i + 1)
         } else {
@@ -27,7 +70,20 @@ export default function QuizGame({ data }) {
       }, 900)
     } else {
       setSelected({ opt, correct: false })
+      if (!wrongAttempted) {
+        setWrongAttempted(true)
+        setMistakes(prev => [...prev, { ...q, yourAnswer: opt }])
+      }
     }
+  }
+
+  function retry() {
+    setQuestions(shuffle(data))
+    setIndex(0)
+    setSelected(null)
+    setMistakes([])
+    setWrongAttempted(false)
+    setDone(false)
   }
 
   function btnClass(opt) {
@@ -38,13 +94,7 @@ export default function QuizGame({ data }) {
   }
 
   if (done) {
-    return (
-      <div className="quiz-container">
-        <div style={{ fontSize: '28px', textAlign: 'center', padding: '20px 0' }}>
-          🎉 Тренування завершено!
-        </div>
-      </div>
-    )
+    return <Results questions={questions} mistakes={mistakes} onRetry={retry} />
   }
 
   return (
