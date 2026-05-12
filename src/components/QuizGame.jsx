@@ -115,9 +115,9 @@ export default function QuizGame({ data }) {
           {selected.correct
             ? <>
                 ✨ Правильно!
-                {q.rule && (
+                {(q.rule || q.hint) && (
                   <span style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginTop: '4px' }}>
-                    📖 {q.rule}
+                    {q.rule ? `📖 ${q.rule}` : `💬 ${q.hint}`}
                   </span>
                 )}
               </>

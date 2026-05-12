@@ -388,6 +388,341 @@ td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
     background: rgba(56, 189, 248, 0.2);
 }
 
+/* ── Dictionary study mode ── */
+.study-mode-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 14px 0 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 16px;
+}
+
+.study-mode-label {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.study-count-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.study-count-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.study-count-btn.active {
+    background: rgba(56,189,248,0.2);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.study-count-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.study-start-btn {
+    background: #38bdf8;
+    border: none;
+    color: #0f172a;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-left: auto;
+}
+
+.study-start-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.dict-empty {
+    text-align: center;
+    color: #64748b;
+    padding: 40px 0;
+    font-size: 15px;
+}
+
+/* ── Media view ── */
+.media-series-block {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.media-series-header {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+}
+
+.media-level-badge {
+    display: inline-block;
+    background: rgba(56,189,248,0.15);
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.media-series-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+
+.media-series-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.media-episodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.media-ep-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: left;
+    color: #f1f5f9;
+    width: 100%;
+}
+
+.media-ep-card:hover {
+    background: rgba(56,189,248,0.08);
+    border-color: rgba(56,189,248,0.3);
+}
+
+.media-ep-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56,189,248,0.12);
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.media-ep-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.media-ep-arrow {
+    color: #475569;
+    font-size: 12px;
+}
+
+/* ── Episode view ── */
+.episode-view {
+    width: 100%;
+    max-width: 680px;
+    align-items: stretch;
+}
+
+.episode-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.episode-tab-btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.episode-tab-btn.active {
+    background: rgba(56,189,248,0.15);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.episode-hint {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.episode-dialogue {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dialogue-line {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    line-height: 1.6;
+}
+
+.dialogue-speaker {
+    font-size: 11px;
+    font-weight: 700;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 100px;
+    flex-shrink: 0;
+}
+
+.dialogue-text {
+    font-size: 15px;
+    color: #e2e8f0;
+}
+
+.dialogue-stage {
+    font-size: 13px;
+    color: #475569;
+    font-style: italic;
+    text-align: center;
+    padding: 4px 0;
+}
+
+.dialogue-commentary {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    background: rgba(56,189,248,0.05);
+    border-left: 3px solid #38bdf8;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* ── Word tooltip ── */
+.vocab-word {
+    position: relative;
+    cursor: pointer;
+    border-bottom: 2px dotted rgba(56,189,248,0.6);
+    color: #bae6fd;
+    display: inline;
+}
+
+.vocab-word.is-saved {
+    border-bottom-color: rgba(34,197,94,0.6);
+    color: #86efac;
+}
+
+.vocab-word-demo {
+    border-bottom: 2px dotted rgba(56,189,248,0.6);
+    color: #bae6fd;
+}
+
+.vocab-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    border: 1px solid rgba(56,189,248,0.35);
+    border-radius: 10px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    pointer-events: all;
+}
+
+.vocab-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(56,189,248,0.35);
+}
+
+.vocab-tooltip-text {
+    font-size: 13px;
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
+.vocab-add-btn {
+    background: rgba(56,189,248,0.2);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.vocab-add-btn:hover {
+    background: rgba(56,189,248,0.35);
+}
+
+.vocab-in-dict {
+    font-size: 12px;
+    color: #22c55e;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .dialogue-line { flex-direction: column; gap: 2px; }
+    .dialogue-speaker { min-width: unset; }
+    .episode-dialogue { padding: 14px 16px; }
+    .vocab-tooltip { white-space: normal; min-width: 160px; max-width: 240px; }
+    .study-mode-bar { flex-direction: column; align-items: flex-start; }
+    .study-start-btn { margin-left: 0; width: 100%; }
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }

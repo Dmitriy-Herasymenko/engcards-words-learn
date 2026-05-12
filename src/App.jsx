@@ -3,8 +3,11 @@ import Header from './components/Header'
 import FlashcardView from './components/FlashcardView'
 import QuizView from './components/QuizView'
 import DictionaryView from './components/DictionaryView'
+import MediaView from './components/MediaView'
+import EpisodeView from './components/EpisodeView'
 import { beginnerWords, intermediateWords, advancedWords } from './data/words'
 import { toBeQuiz, pronounsQuiz, articlesQuiz, articleRulesQuiz, presentSimpleQuiz } from './data/quizzes'
+import { extraEnglishSeries } from './data/extraEnglish'
 
 const QUIZZES = {
   toBe:          { data: toBeQuiz,          theory: 'toBe',          title: 'Тренажер: To Be' },
@@ -14,6 +17,8 @@ const QUIZZES = {
   presentSimple: { data: presentSimpleQuiz, theory: 'presentSimple', title: 'Тренажер: Present Simple' },
 }
 
+const ALL_SERIES = [extraEnglishSeries]
+
 export default function App() {
   const [view, setView] = useState({ type: 'flashcard', title: 'Beginner' })
   const [currentWords, setCurrentWords] = useState(beginnerWords)
@@ -21,6 +26,7 @@ export default function App() {
     () => JSON.parse(localStorage.getItem('savedWords')) || []
   )
   const [activeQuiz, setActiveQuiz] = useState(QUIZZES.toBe)
+  const [activeEpisode, setActiveEpisode] = useState(null)
 
   useEffect(() => {
     localStorage.setItem('savedWords', JSON.stringify(savedWords))
@@ -42,12 +48,36 @@ export default function App() {
     setView({ type: 'quiz', title: quiz.title })
   }
 
+  function openEpisode(episode, seriesTitle) {
+    setActiveEpisode(episode)
+    setView({ type: 'episode', title: `${seriesTitle} — EP ${episode.number}: ${episode.title}` })
+  }
+
   function toggleSave(word) {
     setSavedWords(prev =>
       prev.some(w => w.id === word.id)
         ? prev.filter(w => w.id !== word.id)
         : [...prev, word]
     )
+  }
+
+  function addWordFromEpisode(entry) {
+    const word = {
+      id: `ep_${entry.word}`,
+      wordEng: entry.word,
+      wordUA: entry.translation,
+      transcription: '',
+      example: '',
+    }
+    setSavedWords(prev =>
+      prev.some(w => w.id === word.id) ? prev : [...prev, word]
+    )
+  }
+
+  function studyWords(count) {
+    const pool = [...savedWords].sort(() => Math.random() - 0.5).slice(0, count)
+    setCurrentWords(pool)
+    setView({ type: 'flashcard', title: `Вчити (${pool.length} слів)` })
   }
 
   return (
@@ -58,12 +88,14 @@ export default function App() {
         onShowSaved={showSaved}
         onStartQuiz={startQuiz}
         onOpenDictionary={() => setView({ type: 'dictionary', title: 'Мій словник' })}
+        onOpenMedia={() => setView({ type: 'media', title: 'Медіа' })}
         beginnerWords={beginnerWords}
         intermediateWords={intermediateWords}
         advancedWords={advancedWords}
       />
       <main id="app-viewport">
         <h1 className="page-title">{view.title}</h1>
+
         {view.type === 'flashcard' && (
           <FlashcardView
             key={view.title}
@@ -72,6 +104,7 @@ export default function App() {
             onToggleSave={toggleSave}
           />
         )}
+
         {view.type === 'quiz' && (
           <QuizView
             key={activeQuiz.theory}
@@ -79,10 +112,25 @@ export default function App() {
             theory={activeQuiz.theory}
           />
         )}
+
         {view.type === 'dictionary' && (
           <DictionaryView
             savedWords={savedWords}
             onDelete={id => setSavedWords(prev => prev.filter(w => w.id !== id))}
+            onStudy={studyWords}
+          />
+        )}
+
+        {view.type === 'media' && (
+          <MediaView series={ALL_SERIES} onOpenEpisode={openEpisode} />
+        )}
+
+        {view.type === 'episode' && activeEpisode && (
+          <EpisodeView
+            key={activeEpisode.id}
+            episode={activeEpisode}
+            savedWords={savedWords}
+            onAddWord={addWordFromEpisode}
           />
         )}
       </main>

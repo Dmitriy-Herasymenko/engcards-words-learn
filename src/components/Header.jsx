@@ -6,6 +6,7 @@ export default function Header({
   onShowSaved,
   onStartQuiz,
   onOpenDictionary,
+  onOpenMedia,
   beginnerWords,
   intermediateWords,
   advancedWords,
@@ -73,7 +74,7 @@ export default function Header({
         <div className={`nav-item dropdown${openDropdown === 'media' ? ' active-mobile' : ''}`}>
           <button className="nav-link" onClick={() => toggleDropdown('media')}>Медіа ▾</button>
           <div className="dropdown-content">
-            <button disabled style={{ opacity: 0.5 }}>🎬 Фільми</button>
+            <button onClick={() => act(onOpenMedia)}>🎬 Extra English (A2)</button>
           </div>
         </div>
 
