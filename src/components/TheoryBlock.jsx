@@ -54,6 +54,45 @@ const THEORIES = {
     ],
     notes: <>❌ <b>Don't / Doesn't</b> для заперечення.<br />❓ <b>Do / Does</b> на початку для питання.</>,
   },
+  pastSimple: {
+    title: 'Past Simple (Минулий час)',
+    rows: [
+      ['Тип дієслова', 'Форма', 'Приклад'],
+      ['Правильні', <><b>V1 + ed</b></>, <>I <b>worked</b> yesterday</>],
+      ['Неправильні', <><b>V2</b> (2-а форма)</>, <>She <b>went</b> home</>],
+      ['To Be', <><b>was / were</b></>, <>We <b>were</b> busy</>],
+    ],
+    notes: <>❌ <b>Didn't</b> + V1 для заперечення.<br />❓ <b>Did</b> + V1 на початку для питання.</>,
+  },
+  presentContinuous: {
+    title: 'Present Continuous (Триває зараз)',
+    rows: [
+      ['Особа', 'Форма', 'Приклад'],
+      ['I', <><b>am + Ving</b></>, <>I <b>am working</b></>],
+      ['He/She/It', <><b>is + Ving</b></>, <>She <b>is writing</b></>],
+      ['We/You/They', <><b>are + Ving</b></>, <>They <b>are waiting</b></>],
+    ],
+    notes: <>💡 Слова-маркери: <b>now, right now, at the moment, look!</b><br />❌ <b>am/is/are + not</b> для заперечення.</>,
+  },
+  futureSimple: {
+    title: 'Future Simple (Майбутній час)',
+    rows: [
+      ['Особа', 'Форма', 'Приклад'],
+      ['Будь-яка', <><b>will + V1</b></>, <>I <b>will help</b> you</>],
+      ['Заперечення', <><b>won't + V1</b></>, <>She <b>won't come</b></>],
+      ['Питання', <><b>Will + ...?</b></>, <><b>Will</b> you help me?</>],
+    ],
+    notes: <>💡 Слова-маркери: <b>tomorrow, next week, soon, I think...</b><br />💡 <b>Will</b> однакове для всіх осіб.</>,
+  },
+  presentPerfect: {
+    title: 'Present Perfect (Результат зараз)',
+    rows: [
+      ['Особа', 'Форма', 'Приклад'],
+      ['I/You/We/They', <><b>have + V3</b></>, <>I <b>have finished</b></>],
+      ['He/She/It', <><b>has + V3</b></>, <>She <b>has sent</b> it</>],
+    ],
+    notes: <>💡 Слова-маркери: <b>already, just, yet, ever, never</b>.<br />❌ <b>Haven't / Hasn't</b> + V3 для заперечення.</>,
+  },
 }
 
 const COL_LABELS = ['col-0', 'col-1', 'col-2']
@@ -67,7 +106,7 @@ export default function TheoryBlock({ type }) {
   return (
     <div className="theory-block">
       <div className="theory-card">
-        <h3 style={{ marginTop: 0, color: '#38bdf8' }}>{t.title}</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--ink)', textTransform: 'uppercase', letterSpacing: '0.006em', fontWeight: 400 }}>{t.title}</h3>
         <table className="theory-table mobile-optim">
           <thead>
             <tr>

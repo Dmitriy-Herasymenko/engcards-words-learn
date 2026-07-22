@@ -5,16 +5,31 @@ import QuizView from './components/QuizView'
 import DictionaryView from './components/DictionaryView'
 import MediaView from './components/MediaView'
 import EpisodeView from './components/EpisodeView'
+import TrainerGroupView from './components/TrainerGroupView'
+import RestaurantGame from './components/RestaurantGame'
 import { beginnerWords, intermediateWords, advancedWords } from './data/words'
-import { toBeQuiz, pronounsQuiz, articlesQuiz, articleRulesQuiz, presentSimpleQuiz } from './data/quizzes'
+import {
+  toBeQuiz, pronounsQuiz, articlesQuiz, articleRulesQuiz,
+  presentSimpleQuiz, pastSimpleQuiz, presentContinuousQuiz, futureSimpleQuiz, presentPerfectQuiz,
+} from './data/quizzes'
 import { extraEnglishSeries } from './data/extraEnglish'
 
 const QUIZZES = {
-  toBe:          { data: toBeQuiz,          theory: 'toBe',          title: 'Тренажер: To Be' },
-  pronouns:      { data: pronounsQuiz,      theory: 'pronouns',      title: 'Тренажер: Pronouns' },
-  articles:      { data: articlesQuiz,      theory: 'articles',      title: 'Тренажер: Артиклі' },
-  articleRules:  { data: articleRulesQuiz,  theory: 'articleRules',  title: 'Тренажер: Articles (Rules a–g)' },
-  presentSimple: { data: presentSimpleQuiz, theory: 'presentSimple', title: 'Тренажер: Present Simple' },
+  toBe:          { data: toBeQuiz,          theory: 'toBe',          title: 'Тренажер: To Be',        short: 'Verb To Be',    desc: 'Am / Is / Are — базове дієслово-звʼязка' },
+  pronouns:      { data: pronounsQuiz,      theory: 'pronouns',      title: 'Тренажер: Pronouns',      short: 'Pronouns',      desc: 'Особові та присвійні займенники' },
+  articles:      { data: articlesQuiz,      theory: 'articles',      title: 'Тренажер: Артиклі',       short: 'A / An / The',  desc: 'Коли ставити який артикль' },
+  articleRules:  { data: articleRulesQuiz,  theory: 'articleRules',  title: 'Тренажер: Articles (Rules a–g)', short: 'Правила a–g', desc: '7 правил вживання артиклів' },
+  presentSimple:      { data: presentSimpleQuiz,      theory: 'presentSimple',      title: 'Тренажер: Present Simple',      short: 'Present Simple',      desc: 'Теперішній простий час' },
+  pastSimple:         { data: pastSimpleQuiz,         theory: 'pastSimple',         title: 'Тренажер: Past Simple',         short: 'Past Simple',         desc: 'Минулий простий час' },
+  presentContinuous:  { data: presentContinuousQuiz,  theory: 'presentContinuous',  title: 'Тренажер: Present Continuous',  short: 'Present Continuous',  desc: 'Дія, що триває зараз' },
+  futureSimple:       { data: futureSimpleQuiz,       theory: 'futureSimple',       title: 'Тренажер: Future Simple',       short: 'Future Simple',       desc: 'Майбутній простий час' },
+  presentPerfect:      { data: presentPerfectQuiz,     theory: 'presentPerfect',     title: 'Тренажер: Present Perfect',     short: 'Present Perfect',     desc: 'Результат дії зараз' },
+}
+
+const QUIZ_GROUPS = {
+  basics:  { title: 'Основи',  desc: 'Стартова граматика англійської', items: ['toBe', 'pronouns'] },
+  tenses:  { title: 'Часи',    desc: '5 основних часів англійської мови', items: ['presentSimple', 'pastSimple', 'presentContinuous', 'futureSimple', 'presentPerfect'] },
+  articles: { title: 'Артиклі', desc: 'Все про a / an / the',           items: ['articles', 'articleRules'] },
 }
 
 const ALL_SERIES = [extraEnglishSeries]
@@ -46,6 +61,11 @@ export default function App() {
     const quiz = QUIZZES[key]
     setActiveQuiz(quiz)
     setView({ type: 'quiz', title: quiz.title })
+  }
+
+  function openTrainerGroup(key) {
+    const group = QUIZ_GROUPS[key]
+    setView({ type: 'trainerGroup', title: group.title, groupKey: key })
   }
 
   function openEpisode(episode, seriesTitle) {
@@ -86,9 +106,11 @@ export default function App() {
         savedCount={savedWords.length}
         onSelectLevel={selectLevel}
         onShowSaved={showSaved}
-        onStartQuiz={startQuiz}
+        quizGroups={QUIZ_GROUPS}
+        onOpenTrainerGroup={openTrainerGroup}
         onOpenDictionary={() => setView({ type: 'dictionary', title: 'Мій словник' })}
         onOpenMedia={() => setView({ type: 'media', title: 'Медіа' })}
+        onOpenRestaurant={() => setView({ type: 'restaurant', title: 'У ресторані' })}
         beginnerWords={beginnerWords}
         intermediateWords={intermediateWords}
         advancedWords={advancedWords}
@@ -113,6 +135,15 @@ export default function App() {
           />
         )}
 
+        {view.type === 'trainerGroup' && (
+          <TrainerGroupView
+            key={view.groupKey}
+            group={QUIZ_GROUPS[view.groupKey]}
+            quizzes={QUIZZES}
+            onStartQuiz={startQuiz}
+          />
+        )}
+
         {view.type === 'dictionary' && (
           <DictionaryView
             savedWords={savedWords}
@@ -123,6 +154,10 @@ export default function App() {
 
         {view.type === 'media' && (
           <MediaView series={ALL_SERIES} onOpenEpisode={openEpisode} />
+        )}
+
+        {view.type === 'restaurant' && (
+          <RestaurantGame key={view.title} />
         )}
 
         {view.type === 'episode' && activeEpisode && (
