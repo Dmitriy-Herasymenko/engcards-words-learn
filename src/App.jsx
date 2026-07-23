@@ -7,12 +7,15 @@ import MediaView from './components/MediaView'
 import EpisodeView from './components/EpisodeView'
 import TrainerGroupView from './components/TrainerGroupView'
 import RestaurantGame from './components/RestaurantGame'
+import RoadmapView from './components/RoadmapView'
+import ProgressView from './components/ProgressView'
 import { beginnerWords, intermediateWords, advancedWords } from './data/words'
 import {
   toBeQuiz, pronounsQuiz, articlesQuiz, articleRulesQuiz,
   presentSimpleQuiz, pastSimpleQuiz, presentContinuousQuiz, futureSimpleQuiz, presentPerfectQuiz,
 } from './data/quizzes'
 import { extraEnglishSeries } from './data/extraEnglish'
+import { loadProgress, saveProgress, loadStageProgress, saveStageProgress, isLevelUnlocked, PASS_THRESHOLD } from './utils/progress'
 
 const QUIZZES = {
   toBe:          { data: toBeQuiz,          theory: 'toBe',          title: 'Тренажер: To Be',        short: 'Verb To Be',    desc: 'Am / Is / Are — базове дієслово-звʼязка' },
@@ -32,20 +35,53 @@ const QUIZ_GROUPS = {
   articles: { title: 'Артиклі', desc: 'Все про a / an / the',           items: ['articles', 'articleRules'] },
 }
 
+const LEVEL_ORDER = ['basics', 'articles', 'tenses']
+
 const ALL_SERIES = [extraEnglishSeries]
 
 export default function App() {
-  const [view, setView] = useState({ type: 'flashcard', title: 'Beginner' })
+  const [view, setView] = useState({ type: 'roadmap', title: 'Роадмеп' })
   const [currentWords, setCurrentWords] = useState(beginnerWords)
   const [savedWords, setSavedWords] = useState(
     () => JSON.parse(localStorage.getItem('savedWords')) || []
   )
   const [activeQuiz, setActiveQuiz] = useState(QUIZZES.toBe)
+  const [activeQuizKey, setActiveQuizKey] = useState('toBe')
+  const [activeGroupKey, setActiveGroupKey] = useState('basics')
   const [activeEpisode, setActiveEpisode] = useState(null)
+  const [progress, setProgress] = useState(() => loadProgress())
+  const [stageProgress, setStageProgress] = useState(() => loadStageProgress())
+  const [lockedNotice, setLockedNotice] = useState(null)
 
   useEffect(() => {
     localStorage.setItem('savedWords', JSON.stringify(savedWords))
   }, [savedWords])
+
+  useEffect(() => {
+    saveProgress(progress)
+  }, [progress])
+
+  useEffect(() => {
+    saveStageProgress(stageProgress)
+  }, [stageProgress])
+
+  function recordQuizResult(key, pct) {
+    setProgress(prev => ({ ...prev, [key]: Math.max(prev[key] || 0, pct) }))
+  }
+
+  function recordStageResult(key, stageIdx, pct) {
+    setStageProgress(prev => {
+      const quizStages = { ...(prev[key] || {}) }
+      quizStages[stageIdx] = Math.max(quizStages[stageIdx] || 0, pct)
+      return { ...prev, [key]: quizStages }
+    })
+  }
+
+  function isGroupUnlocked(groupKey) {
+    const idx = LEVEL_ORDER.indexOf(groupKey)
+    if (idx === -1) return true
+    return isLevelUnlocked(idx, LEVEL_ORDER, QUIZ_GROUPS, progress)
+  }
 
   function selectLevel(words, title) {
     setCurrentWords(words)
@@ -57,15 +93,30 @@ export default function App() {
     setView({ type: 'flashcard', title: 'Обране' })
   }
 
-  function startQuiz(key) {
+  function startQuiz(key, groupKey) {
     const quiz = QUIZZES[key]
     setActiveQuiz(quiz)
+    setActiveQuizKey(key)
+    if (groupKey) setActiveGroupKey(groupKey)
     setView({ type: 'quiz', title: quiz.title })
   }
 
   function openTrainerGroup(key) {
     const group = QUIZ_GROUPS[key]
+    if (!isGroupUnlocked(key)) {
+      const idx = LEVEL_ORDER.indexOf(key)
+      const prevGroup = QUIZ_GROUPS[LEVEL_ORDER[idx - 1]]
+      setLockedNotice(`Спочатку пройди «${prevGroup.title}» на ${PASS_THRESHOLD}%+, щоб відкрити «${group.title}»`)
+      setView({ type: 'roadmap', title: 'Роадмеп' })
+      return
+    }
+    setLockedNotice(null)
     setView({ type: 'trainerGroup', title: group.title, groupKey: key })
+  }
+
+  function openRoadmap() {
+    setLockedNotice(null)
+    setView({ type: 'roadmap', title: 'Роадмеп' })
   }
 
   function openEpisode(episode, seriesTitle) {
@@ -111,12 +162,30 @@ export default function App() {
         onOpenDictionary={() => setView({ type: 'dictionary', title: 'Мій словник' })}
         onOpenMedia={() => setView({ type: 'media', title: 'Медіа' })}
         onOpenRestaurant={() => setView({ type: 'restaurant', title: 'У ресторані' })}
+        onOpenRoadmap={openRoadmap}
+        onOpenProgress={() => setView({ type: 'progress', title: 'Прогрес' })}
+        isGroupUnlocked={isGroupUnlocked}
         beginnerWords={beginnerWords}
         intermediateWords={intermediateWords}
         advancedWords={advancedWords}
       />
       <main id="app-viewport">
         <h1 className="page-title">{view.title}</h1>
+
+        {view.type === 'roadmap' && (
+          <RoadmapView
+            levelOrder={LEVEL_ORDER}
+            groups={QUIZ_GROUPS}
+            progress={progress}
+            quizzes={QUIZZES}
+            onOpenGroup={openTrainerGroup}
+            lockedNotice={lockedNotice}
+          />
+        )}
+
+        {view.type === 'progress' && (
+          <ProgressView groups={QUIZ_GROUPS} quizzes={QUIZZES} progress={progress} />
+        )}
 
         {view.type === 'flashcard' && (
           <FlashcardView
@@ -132,6 +201,15 @@ export default function App() {
             key={activeQuiz.theory}
             quizData={activeQuiz.data}
             theory={activeQuiz.theory}
+            group={QUIZ_GROUPS[activeGroupKey]}
+            quizzes={QUIZZES}
+            activeKey={activeQuizKey}
+            progress={progress}
+            stageProgress={stageProgress[activeQuizKey] || {}}
+            onNavQuiz={key => startQuiz(key, activeGroupKey)}
+            onBackToGroup={() => openTrainerGroup(activeGroupKey)}
+            onQuizComplete={recordQuizResult}
+            onStageComplete={(stageIdx, pct) => recordStageResult(activeQuizKey, stageIdx, pct)}
           />
         )}
 
@@ -139,8 +217,10 @@ export default function App() {
           <TrainerGroupView
             key={view.groupKey}
             group={QUIZ_GROUPS[view.groupKey]}
+            groupKey={view.groupKey}
             quizzes={QUIZZES}
-            onStartQuiz={startQuiz}
+            progress={progress}
+            onStartQuiz={key => startQuiz(key, view.groupKey)}
           />
         )}
 

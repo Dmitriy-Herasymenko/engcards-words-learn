@@ -9,6 +9,9 @@ export default function Header({
   onOpenDictionary,
   onOpenMedia,
   onOpenRestaurant,
+  onOpenRoadmap,
+  onOpenProgress,
+  isGroupUnlocked,
   beginnerWords,
   intermediateWords,
   advancedWords,
@@ -29,7 +32,7 @@ export default function Header({
   }
 
   function toggleDropdown(name) {
-    if (window.innerWidth <= 850) {
+    if (window.innerWidth <= 1220) {
       setOpenDropdown(prev => (prev === name ? null : name))
     }
   }
@@ -52,6 +55,9 @@ export default function Header({
         </button>
 
         <nav className={`nav-menu${menuOpen ? ' open' : ''}`}>
+          <button className="nav-link" onClick={() => act(onOpenRoadmap)}>🗺️ Роадмеп</button>
+          <button className="nav-link" onClick={() => act(onOpenProgress)}>📊 Прогрес</button>
+
           <div className={`nav-item dropdown${openDropdown === 'cards' ? ' active-mobile' : ''}`}>
             <button className="nav-link" onClick={() => toggleDropdown('cards')}>Картки ▾</button>
             <div className="dropdown-content">
@@ -65,9 +71,18 @@ export default function Header({
           <div className={`nav-item dropdown${openDropdown === 'trainer' ? ' active-mobile' : ''}`}>
             <button className="nav-link" onClick={() => toggleDropdown('trainer')}>Тренажер ▾</button>
             <div className="dropdown-content">
-              {Object.entries(quizGroups).map(([key, group]) => (
-                <button key={key} onClick={() => act(() => onOpenTrainerGroup(key))}>{group.title}</button>
-              ))}
+              {Object.entries(quizGroups).map(([key, group]) => {
+                const unlocked = isGroupUnlocked ? isGroupUnlocked(key) : true
+                return (
+                  <button
+                    key={key}
+                    onClick={() => act(() => onOpenTrainerGroup(key))}
+                    style={!unlocked ? { opacity: 0.5 } : undefined}
+                  >
+                    {unlocked ? group.title : `🔒 ${group.title}`}
+                  </button>
+                )
+              })}
               <button disabled style={{ opacity: 0.5 }}>⏳ Скоро...</button>
             </div>
           </div>

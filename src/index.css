@@ -105,7 +105,7 @@ button {
 
 .nav-menu {
     display: flex;
-    gap: 6px;
+    gap: 2px;
 }
 
 .nav-item {
@@ -122,10 +122,11 @@ button {
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 10px 15px;
+    padding: 10px 11px;
     cursor: pointer;
     transition: 0.2s;
     border-radius: var(--radius-ui);
+    white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -464,6 +465,75 @@ button {
 }
 .buttons button:disabled { opacity: 0.3; cursor: default; }
 
+.quiz-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.quiz-switcher-btn,
+.quiz-switcher-back {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid var(--ash);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 10px 22px -12px rgba(29, 29, 29, 0.2);
+    padding: 10px 16px;
+    border-radius: var(--radius-ui);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+}
+
+.quiz-switcher-btn { flex: 1 1 0; min-width: 120px; }
+.quiz-switcher-back { flex: 1.4 1 0; min-width: 160px; text-align: center; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+
+.quiz-switcher-btn:hover:not(:disabled),
+.quiz-switcher-back:hover {
+    background: var(--ink);
+    color: var(--parchment);
+    border-color: var(--ink);
+}
+
+.quiz-switcher-btn:disabled { opacity: 0.3; cursor: default; }
+
+.hint-toggle-btn {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid var(--ash);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 10px 22px -12px rgba(29, 29, 29, 0.2);
+    padding: 10px 20px;
+    border-radius: var(--radius-ui);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    margin-bottom: 18px;
+}
+
+.hint-toggle-btn:hover {
+    background: var(--ink);
+    color: var(--parchment);
+    border-color: var(--ink);
+}
+
+@media (max-width: 640px) {
+    .quiz-switcher { flex-direction: column; }
+    .quiz-switcher-btn, .quiz-switcher-back { width: 100%; }
+}
+
 .saved-section {
     width: 100%;
     max-width: 850px;
@@ -736,6 +806,147 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     color: var(--parchment);
 }
 
+.vocab-card {
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid var(--ash);
+    border-radius: 18px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 14px 30px -20px rgba(29, 29, 29, 0.2);
+    cursor: pointer;
+    margin: 10px 0 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.vocab-card-word {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+}
+
+.vocab-card-hint {
+    font-size: 11px;
+    color: var(--ink-35);
+    letter-spacing: 0.03em;
+}
+
+.vocab-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vocab-card-actions .quiz-next-stage-btn { flex: 1; }
+
+.quiz-stage-fail-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--bad);
+    background: rgba(161, 69, 58, 0.08);
+    border: 1px solid var(--bad);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+}
+
+.quiz-results-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-next-stage-btn {
+    background: var(--ink);
+    color: var(--parchment);
+}
+
+.quiz-next-stage-btn:hover { opacity: 0.85; }
+
+.quiz-back-stages-btn {
+    background: none;
+    box-shadow: none;
+}
+
+.quiz-stage-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.quiz-stage-picker { text-align: center; }
+
+.quiz-stage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.quiz-stage-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid var(--ash);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 10px 22px -12px rgba(29, 29, 29, 0.2);
+    padding: 14px 18px;
+    border-radius: var(--radius-ui);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.quiz-stage-btn:hover {
+    background: var(--ink);
+    color: var(--parchment);
+}
+
+.quiz-stage-btn.locked, .quiz-stage-btn:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.quiz-stage-btn.locked:hover, .quiz-stage-btn:disabled:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--ink);
+}
+
+.quiz-stage-name { flex: 1; text-align: left; font-weight: 700; }
+.quiz-stage-count { font-size: 11px; color: var(--ink-55); }
+.quiz-stage-btn:hover .quiz-stage-count { color: var(--parchment); opacity: 0.7; }
+
+.quiz-stage-score {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: var(--radius-ui);
+    border: 1px solid var(--ash);
+    color: var(--ink-55);
+}
+
+.quiz-stage-score.good { border-color: var(--ok); color: var(--ok); }
+
 /* ── Dictionary study mode ── */
 .study-mode-bar {
     display: flex;
@@ -814,6 +1025,109 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     font-size: 15px;
 }
 
+/* ── Kids explainer (ELI5 board) ── */
+.kids-explainer {
+    width: 100%;
+    max-width: 600px;
+    background: linear-gradient(160deg, rgba(255, 244, 214, 0.55), rgba(255, 255, 255, 0.35));
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--ash);
+    border-radius: 22px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 20px 40px -26px rgba(29, 29, 29, 0.22);
+    padding: 22px 22px 18px;
+    margin-bottom: 24px;
+}
+
+.kids-explainer-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.kids-explainer-intro {
+    font-size: 13.5px;
+    color: var(--ink-70);
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.kids-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.kids-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid var(--ash);
+    border-radius: 16px;
+    padding: 12px 14px;
+}
+
+.kids-card-emoji {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 22px;
+    border: 1px solid var(--ash);
+}
+
+.kids-card-body { flex: 1; }
+
+.kids-card-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.kids-card-text {
+    font-size: 13px;
+    color: var(--ink-70);
+    line-height: 1.45;
+    margin-bottom: 6px;
+}
+
+.kids-card-example {
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--ok);
+    background: rgba(63, 107, 74, 0.08);
+    border-radius: 8px;
+    padding: 5px 9px;
+    display: inline-block;
+}
+
+.kids-start-btn {
+    width: 100%;
+    margin-top: 16px;
+    background: var(--ink);
+    color: var(--parchment);
+    border: none;
+    border-radius: var(--radius-ui);
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.kids-start-btn:hover { opacity: 0.85; }
+
 /* ── Media view ── */
 .media-series-block {
     width: 100%;
@@ -888,6 +1202,11 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     width: 100%;
 }
 
+.media-ep-card.locked, .media-ep-card:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
 .media-ep-card:hover {
     border-color: var(--ink);
 }
@@ -921,6 +1240,247 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
 .media-ep-arrow {
     color: var(--ink-35);
     font-size: 12px;
+}
+
+/* ── Progress view ── */
+.progress-summary {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--ash);
+    border-radius: 22px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 20px 40px -26px rgba(29, 29, 29, 0.22);
+    padding: 26px;
+    margin-bottom: 24px;
+}
+
+.progress-summary-pct {
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+}
+
+.progress-summary-label {
+    font-size: 13px;
+    color: var(--ink-55);
+    margin-top: 8px;
+}
+
+.progress-group {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 22px;
+}
+
+.progress-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-55);
+    margin-bottom: 10px;
+}
+
+.progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.progress-row {
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid var(--ash);
+    border-radius: 14px;
+    padding: 12px 16px;
+}
+
+.progress-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.progress-row-pct { color: var(--ink-55); }
+.progress-row-pct.good { color: var(--ok); }
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    background: rgba(29, 29, 29, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--ok);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+/* ── Roadmap view ── */
+.roadmap {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.roadmap-notice {
+    background: rgba(161, 69, 58, 0.1);
+    border: 1px solid var(--bad);
+    color: var(--bad);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.roadmap-row {
+    display: flex;
+    gap: 16px;
+}
+
+.roadmap-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.roadmap-node {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    color: var(--parchment);
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.roadmap-node.done { background: var(--ok); }
+.roadmap-node.locked { background: rgba(29, 29, 29, 0.15); color: var(--ink-55); }
+
+.roadmap-connector {
+    width: 2px;
+    flex: 1;
+    min-height: 24px;
+    background: var(--ash);
+    margin: 4px 0;
+}
+
+.roadmap-card {
+    flex: 1;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--ash);
+    border-radius: 18px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 18px 36px -24px rgba(29, 29, 29, 0.2);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: var(--ink);
+    width: 100%;
+}
+
+.roadmap-card:hover:not(:disabled) { border-color: var(--ink); }
+
+.roadmap-card.locked, .roadmap-card:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.roadmap-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.roadmap-level-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+}
+
+.roadmap-lock { font-size: 14px; }
+
+.roadmap-title {
+    font-size: 19px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.006em;
+    margin: 0 0 6px;
+}
+
+.roadmap-desc {
+    font-size: 13px;
+    color: var(--ink-55);
+    margin: 0 0 12px;
+}
+
+.roadmap-progress-bar {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: rgba(29, 29, 29, 0.1);
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.roadmap-progress-fill {
+    height: 100%;
+    background: var(--ok);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
+
+.roadmap-progress-label {
+    font-size: 11.5px;
+    color: var(--ink-55);
+    margin-bottom: 10px;
+}
+
+.roadmap-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.roadmap-chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-ui);
+    border: 1px solid var(--ash);
+    color: var(--ink-55);
+}
+
+.roadmap-chip.done {
+    border-color: var(--ok);
+    color: var(--ok);
+    background: rgba(63, 107, 74, 0.08);
 }
 
 /* ── Episode view ── */
@@ -1115,7 +1675,7 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1220px) {
     .burger-menu { display: flex; }
     .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--parchment); flex-direction: column; padding: 100px 20px 20px; transition: 0.4s; border-left: 1px solid var(--ash); gap: 20px; z-index: 1050; }
     .nav-menu.open { right: 0; }

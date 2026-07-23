@@ -52,9 +52,9 @@ export const RESTAURANT_STEPS = [
     text: 'Here are your menus. Can I get you started with something to drink?',
     retry: 'Sorry, could you repeat that, please?',
     choices: [
-      { text: 'Yes, could I have something to drink, please?', correct: true },
-      { text: 'Yes, I can have something to drink?', correct: false },
-      { text: 'Yes, could I has something to drink?', correct: false },
+      { text: 'Yes, please — that would be great.', correct: true },
+      { text: 'Yes, please — that will be great.', correct: false },
+      { text: 'Yes please that would being great.', correct: false },
     ],
   },
   {
@@ -89,12 +89,12 @@ export const RESTAURANT_STEPS = [
   },
   {
     type: 'line', speaker: 'waiter',
-    text: 'Excellent choice. And what would you like for your main course?',
+    text: 'Excellent choice. And are you ready to order your main course?',
     retry: 'Sorry, could you repeat your order?',
     choices: [
-      { text: "I'll have a main course, please.", correct: true },
-      { text: "I'll having a main course, please.", correct: false },
-      { text: 'I have a main course will, please.', correct: false },
+      { text: 'Yes, we are ready to order now.', correct: true },
+      { text: 'Yes, we is ready to order now.', correct: false },
+      { text: 'Yes, we ready order now.', correct: false },
     ],
   },
   {

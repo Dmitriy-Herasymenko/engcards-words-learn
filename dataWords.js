@@ -313,3 +313,4 @@ const advancedWords = [
   { id: 299, wordEng: "stability", wordUA: "стабільність", transcription: "[stəˈbɪləti]", example: "Economic stability is essential for growth." },
   { id: 300, wordEng: "status quo", wordUA: "існуючий стан справ", transcription: "[ˌsteɪtəs ˈkwəʊ]", example: "Conservatives often want to maintain the status quo." }
 ];
+ 
