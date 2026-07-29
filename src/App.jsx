@@ -13,15 +13,22 @@ import { beginnerWords, intermediateWords, advancedWords } from './data/words'
 import {
   toBeQuiz, pronounsQuiz, articlesQuiz, articleRulesQuiz,
   presentSimpleQuiz, pastSimpleQuiz, presentContinuousQuiz, futureSimpleQuiz, presentPerfectQuiz,
+  wordOrderStatementQuiz, wordOrderQuestionQuiz, wordOrderNegativeQuiz,
+  adjectivesComparisonQuiz, prepositionsInOnToQuiz,
 } from './data/quizzes'
 import { extraEnglishSeries } from './data/extraEnglish'
 import { loadProgress, saveProgress, loadStageProgress, saveStageProgress, isLevelUnlocked, PASS_THRESHOLD } from './utils/progress'
 
 const QUIZZES = {
+  wordOrderStatement: { data: wordOrderStatementQuiz, theory: 'wordOrderStatement', title: 'Тренажер: Розповідне речення', short: 'Розповідне речення', desc: 'Порядок слів: хто + дія + що' },
+  wordOrderQuestion:  { data: wordOrderQuestionQuiz,  theory: 'wordOrderQuestion',  title: 'Тренажер: Питальне речення',   short: 'Питальне речення',   desc: 'Порядок слів у питаннях' },
+  wordOrderNegative:  { data: wordOrderNegativeQuiz,  theory: 'wordOrderNegative',  title: 'Тренажер: Заперечне речення',  short: 'Заперечне речення',  desc: 'Порядок слів у запереченнях' },
   toBe:          { data: toBeQuiz,          theory: 'toBe',          title: 'Тренажер: To Be',        short: 'Verb To Be',    desc: 'Am / Is / Are — базове дієслово-звʼязка' },
   pronouns:      { data: pronounsQuiz,      theory: 'pronouns',      title: 'Тренажер: Pronouns',      short: 'Pronouns',      desc: 'Особові та присвійні займенники' },
   articles:      { data: articlesQuiz,      theory: 'articles',      title: 'Тренажер: Артиклі',       short: 'A / An / The',  desc: 'Коли ставити який артикль' },
   articleRules:  { data: articleRulesQuiz,  theory: 'articleRules',  title: 'Тренажер: Articles (Rules a–g)', short: 'Правила a–g', desc: '7 правил вживання артиклів' },
+  adjectivesComparison: { data: adjectivesComparisonQuiz, theory: 'adjectivesComparison', title: 'Тренажер: Ступені порівняння', short: 'Ступені порівняння', desc: 'Прикметник: er/est, more/most' },
+  prepositionsInOnTo:   { data: prepositionsInOnToQuiz,   theory: 'prepositionsInOnTo',   title: 'Тренажер: In / On / To',      short: 'In / On / To',      desc: 'Прийменники місця та руху' },
   presentSimple:      { data: presentSimpleQuiz,      theory: 'presentSimple',      title: 'Тренажер: Present Simple',      short: 'Present Simple',      desc: 'Теперішній простий час' },
   pastSimple:         { data: pastSimpleQuiz,         theory: 'pastSimple',         title: 'Тренажер: Past Simple',         short: 'Past Simple',         desc: 'Минулий простий час' },
   presentContinuous:  { data: presentContinuousQuiz,  theory: 'presentContinuous',  title: 'Тренажер: Present Continuous',  short: 'Present Continuous',  desc: 'Дія, що триває зараз' },
@@ -30,12 +37,12 @@ const QUIZZES = {
 }
 
 const QUIZ_GROUPS = {
-  basics:  { title: 'Основи',  desc: 'Стартова граматика англійської', items: ['toBe', 'pronouns'] },
+  wordOrder: { title: 'Порядок слів у реченні', desc: 'Розповідне, питальне та заперечне речення', items: ['wordOrderStatement', 'wordOrderQuestion', 'wordOrderNegative'] },
+  basics:  { title: 'Основи',  desc: 'Стартова граматика англійської', items: ['toBe', 'pronouns', 'articles', 'articleRules', 'adjectivesComparison', 'prepositionsInOnTo'] },
   tenses:  { title: 'Часи',    desc: '5 основних часів англійської мови', items: ['presentSimple', 'pastSimple', 'presentContinuous', 'futureSimple', 'presentPerfect'] },
-  articles: { title: 'Артиклі', desc: 'Все про a / an / the',           items: ['articles', 'articleRules'] },
 }
 
-const LEVEL_ORDER = ['basics', 'articles', 'tenses']
+const LEVEL_ORDER = ['wordOrder', 'basics', 'tenses']
 
 const ALL_SERIES = [extraEnglishSeries]
 

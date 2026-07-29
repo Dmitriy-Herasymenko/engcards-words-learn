@@ -93,6 +93,56 @@ const THEORIES = {
     ],
     notes: <>💡 Слова-маркери: <b>already, just, yet, ever, never</b>.<br />❌ <b>Haven't / Hasn't</b> + V3 для заперечення.</>,
   },
+  wordOrderStatement: {
+    title: 'Розповідне речення (Порядок слів)',
+    rows: [
+      ['Хто?', 'Дія', 'Що/Кого?'],
+      [<b>I</b>, 'love', 'coffee'],
+      [<b>She</b>, 'reads', 'a book'],
+      [<b>We</b>, 'live', 'in a city'],
+    ],
+    notes: <>💡 Завжди спочатку <b>хто</b> (підмет), потім <b>дія</b> (дієслово), потім <b>що</b> (додаток).<br />❌ Ніколи не міняй місцями — це не як в українській!</>,
+  },
+  wordOrderQuestion: {
+    title: 'Питальне речення (Порядок слів)',
+    rows: [
+      ['Помічник', 'Хто?', 'Дія?'],
+      [<b>Do</b>, 'you', 'like coffee?'],
+      [<b>Does</b>, 'she', 'read a book?'],
+      [<b>Are</b>, 'you', 'ready?'],
+    ],
+    notes: <>💡 Спочатку — помічник (<b>Do/Does/Is/Are/Can/Will</b>), потім хто, потім дія.<br />❓ Питальне слово (What/Where/When) ставиться на самий початок.</>,
+  },
+  wordOrderNegative: {
+    title: 'Заперечне речення (Порядок слів)',
+    rows: [
+      ['Хто?', 'Заперечення', 'Дія'],
+      [<b>I</b>, "don't", 'love coffee'],
+      [<b>She</b>, "doesn't", 'read a book'],
+      [<b>They</b>, "aren't", 'ready'],
+    ],
+    notes: <>💡 Спочатку хто, потім заперечення (<b>don't / doesn't / isn't / aren't</b>), потім дія.<br />❌ Слово "not" не ставиться в кінці речення!</>,
+  },
+  adjectivesComparison: {
+    title: 'Прикметник. Ступені порівняння',
+    rows: [
+      ['Тип слова', 'Форма', 'Приклад'],
+      ['Коротке (1 склад)', <><b>+er / +est</b></>, <>tall → <b>taller</b> → <b>the tallest</b></>],
+      ['Довге (2+ склади)', <><b>more / most</b></>, <>beautiful → <b>more beautiful</b> → <b>the most beautiful</b></>],
+      ['Виключення', <><b>особлива форма</b></>, <>good → <b>better</b> → <b>the best</b></>],
+    ],
+    notes: <>💡 Короткі слова (1 склад) — додаємо <b>-er/-est</b>.<br />💡 Довгі слова (2+ склади) — додаємо <b>more/most</b> перед словом.<br />❌ good, bad, far — виключення, вчимо напам'ять!</>,
+  },
+  prepositionsInOnTo: {
+    title: 'Прийменники: In / On / To',
+    rows: [
+      ['Прийменник', 'Коли?', 'Приклад'],
+      [<b>In</b>, 'місяць, рік, місто, кімната', <>in July, <b>in</b> Kyiv, <b>in</b> the room</>],
+      [<b>On</b>, 'день, дата, поверхня', <>on Monday, <b>on</b> the table</>],
+      [<b>To</b>, 'рух, напрямок (куди?)', <>go <b>to</b> school, <b>to</b> the party</>],
+    ],
+    notes: <>💡 <b>In</b> — всередині чогось (місяць/місто/кімната).<br />💡 <b>On</b> — на поверхні (стіл/день тижня).<br />💡 <b>To</b> — рух у напрямку (йти/їхати кудись).</>,
+  },
 }
 
 const COL_LABELS = ['col-0', 'col-1', 'col-2']

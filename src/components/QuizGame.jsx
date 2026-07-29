@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { PASS_THRESHOLD } from '../utils/progress'
-import { QUIZ_VOCAB } from '../data/quizVocab'
-import VocabFlashcards from './VocabFlashcards'
-import VocabQuiz from './VocabQuiz'
+import ClickableText from './ClickableText'
 
 const STAGE_SPLIT_THRESHOLD = 40
 const STAGE_COUNT = 3
@@ -154,7 +152,8 @@ function QuizStage({ questions: sourceQuestions, stageLabel, onFinishStage, onNe
       <div className="feedback">
         <span>Питання {index + 1} з {questions.length}</span>
       </div>
-      <div className="quiz-q">{q.question}</div>
+      <div className="quiz-q"><ClickableText text={q.question} /></div>
+      <div className="quiz-hint-note">💡 Натисни на підкреслене слово, щоб побачити переклад</div>
       <div className="options-grid">
         {q.options.map(opt => (
           <button key={opt} className={btnClass(opt)} onClick={() => answer(opt)}>
@@ -181,21 +180,18 @@ function QuizStage({ questions: sourceQuestions, stageLabel, onFinishStage, onNe
   )
 }
 
-export default function QuizGame({ data, quizKey, onComplete, initialStageStats, onStageComplete }) {
+export default function QuizGame({ data, onComplete, initialStageStats, onStageComplete }) {
   const stages = useMemo(
     () => (data.length > STAGE_SPLIT_THRESHOLD ? chunkStages(data, STAGE_COUNT) : [data]),
     [data]
   )
   const multiStage = stages.length > 1
-  const vocabStages = QUIZ_VOCAB[quizKey]
 
   const [stageIdx, setStageIdx] = useState(multiStage ? null : 0)
   const [stageStats, setStageStats] = useState(() => initialStageStats || {})
-  const [phase, setPhase] = useState('grammar')
 
   function openStage(i) {
     setStageIdx(i)
-    setPhase(vocabStages?.[i]?.length ? 'vocab-cards' : 'grammar')
   }
 
   function finishStage(pct) {
@@ -244,26 +240,6 @@ export default function QuizGame({ data, quizKey, onComplete, initialStageStats,
           })}
         </div>
       </div>
-    )
-  }
-
-  if (phase === 'vocab-cards') {
-    return (
-      <VocabFlashcards
-        key={`vc-${stageIdx}`}
-        words={vocabStages[stageIdx]}
-        onDone={() => setPhase('vocab-quiz')}
-      />
-    )
-  }
-
-  if (phase === 'vocab-quiz') {
-    return (
-      <VocabQuiz
-        key={`vq-${stageIdx}`}
-        words={vocabStages[stageIdx]}
-        onDone={() => setPhase('grammar')}
-      />
     )
   }
 

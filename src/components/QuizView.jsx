@@ -43,7 +43,6 @@ export default function QuizView({ quizData, theory, group, quizzes, activeKey, 
       {showHint && <TheoryBlock type={theory} />}
       <QuizGame
         data={quizData}
-        quizKey={activeKey}
         onComplete={pct => onQuizComplete?.(activeKey, pct)}
         initialStageStats={stageProgress}
         onStageComplete={onStageComplete}

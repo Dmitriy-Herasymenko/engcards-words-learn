@@ -579,6 +579,12 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     max-width: 400px;
     text-align: center;
 }
+.quiz-hint-note {
+    font-size: 11px;
+    color: var(--ink-35);
+    margin-top: 6px;
+}
+
 .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
 .option-btn {
     background: rgba(255, 255, 255, 0.4);
@@ -805,48 +811,6 @@ td { padding: 15px; border-bottom: 1px solid var(--ash); font-size: 15px; }
     background: var(--ink);
     color: var(--parchment);
 }
-
-.vocab-card {
-    width: 100%;
-    min-height: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
-    border: 1px solid var(--ash);
-    border-radius: 18px;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.8),
-        0 14px 30px -20px rgba(29, 29, 29, 0.2);
-    cursor: pointer;
-    margin: 10px 0 18px;
-    padding: 20px;
-    text-align: center;
-}
-
-.vocab-card-word {
-    font-size: 32px;
-    font-weight: 400;
-    color: var(--ink);
-}
-
-.vocab-card-hint {
-    font-size: 11px;
-    color: var(--ink-35);
-    letter-spacing: 0.03em;
-}
-
-.vocab-card-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.vocab-card-actions .quiz-next-stage-btn { flex: 1; }
 
 .quiz-stage-fail-note {
     text-align: center;
