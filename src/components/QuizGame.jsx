@@ -9,6 +9,10 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
+function shuffleQuestions(questions) {
+  return shuffle(questions).map(q => ({ ...q, options: shuffle(q.options) }))
+}
+
 function chunkStages(data, n) {
   const size = Math.ceil(data.length / n)
   const chunks = []
@@ -76,7 +80,7 @@ function Results({ questions, mistakes, onRetry, stageLabel, onNextStage, onBack
 }
 
 function QuizStage({ questions: sourceQuestions, stageLabel, onFinishStage, onNextStage, onBackToStages }) {
-  const [questions, setQuestions] = useState(() => shuffle(sourceQuestions))
+  const [questions, setQuestions] = useState(() => shuffleQuestions(sourceQuestions))
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [mistakes, setMistakes] = useState([])
@@ -117,7 +121,7 @@ function QuizStage({ questions: sourceQuestions, stageLabel, onFinishStage, onNe
   }
 
   function retry() {
-    setQuestions(shuffle(sourceQuestions))
+    setQuestions(shuffleQuestions(sourceQuestions))
     setIndex(0)
     setSelected(null)
     setMistakes([])
